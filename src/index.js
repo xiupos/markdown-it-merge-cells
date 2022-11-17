@@ -92,7 +92,7 @@ module.exports = md => {
       for (let row = 2; row < parsedTokens.rowCount; row++) {
         const thisCell = processMatrix[row][column];
 
-        if (thisCell.content === processMatrix[row - 1][column].content) {
+        if (thisCell.content === '^') {
           thisCell.mergedTo = processMatrix[row - 1][column].mergedTo // if cell above merged
                            || processMatrix[row - 1][column];         // if cell above NOT merged
           
@@ -104,17 +104,17 @@ module.exports = md => {
 
     // Merge cells in a *row* then.
     for (let row = 0; row < parsedTokens.rowCount; row++) {
-      for (let column = 1; column < parsedTokens.columnCount; column++) {
+      for (let column = parsedTokens.columnCount - 2; column > 0; column--) {
         const thisCell = processMatrix[row][column];
 
         // Skip if this cell or the cell on the left is already merged to one above.
         if (thisCell.cellCountInColumn === 0) continue;
-        if (processMatrix[row][column - 1].cellCountInColumn === 0) continue;
+        if (processMatrix[row][column + 1].cellCountInColumn === 0) continue;
 
-        if (thisCell.content !== processMatrix[row][column - 1].content) continue;
+        if (thisCell.content !== '>') continue;
 
-        const mergeTo = processMatrix[row][column - 1].mergedTo // if cell on the left merged
-                     || processMatrix[row][column - 1];         // if cell on the left NOT merged
+        const mergeTo = processMatrix[row][column + 1].mergedTo // if cell on the left merged
+                     || processMatrix[row][column + 1];         // if cell on the left NOT merged
         
         // If both cells have cells merged to itself, we can only merge them if
         // they have same count of cells in a column.

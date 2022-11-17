@@ -1,7 +1,7 @@
 # markdown-it-merge-cells
-A markdown-it plugin to merge adjacent cells with same content.
+A markdown-it plugin to merge adjacent cells ~~with same content~~.
 
-It will first merge cells with same content in every *column* and then merge cells with same content (and height, if ones are merged in first step) in every *row*. This is by design because usually a column is a field and a row is a record -- it's more reasonable that multi records have same value in a field than in a record multi fields' have same value.
+<!-- It will first merge cells with same content in every *column* and then merge cells with same content (and height, if ones are merged in first step) in every *row*. This is by design because usually a column is a field and a row is a record -- it's more reasonable that multi records have same value in a field than in a record multi fields' have same value. -->
 
 # Usage
 ```js
@@ -18,9 +18,9 @@ md.use(window.markdownitMergeCells);
 let result = md.render(`
 |1|1|3|4|5|
 |-|-|-|-|-|
-|1|1|2|2|6|
-|1|1|2|2|7|
-|1|4|3|5|5|
+|1|1|>|2|6|
+|^|^|^|^|7|
+|^|4|3|>|5|
 `)
 ```
 
@@ -29,7 +29,8 @@ The result is:
 <table>
   <thead>
     <tr>
-      <th colspan="2">1</th>
+      <th>1</th>
+      <th>1</th>
       <th>3</th>
       <th>4</th>
       <th>5</th>
@@ -59,7 +60,8 @@ The rendered HTML is:
 <table>
   <thead>
     <tr>
-      <th colspan="2">1</th>
+      <th>1</th>
+      <th>1</th>
       <th>3</th>
       <th>4</th>
       <th>5</th>

@@ -104,7 +104,7 @@ module.exports = md => {
 
     // Merge cells in a *row* then.
     for (let row = 0; row < parsedTokens.rowCount; row++) {
-      for (let column = parsedTokens.columnCount - 2; column > 0; column--) {
+      for (let column = parsedTokens.columnCount - 2; column >= 0; column--) {
         const thisCell = processMatrix[row][column];
 
         // Skip if this cell or the cell on the left is already merged to one above.
